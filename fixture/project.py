@@ -58,3 +58,18 @@ class ProjectHelper:
     def click_proceed_link(self):
         wd = self.app.wd
         wd.find_element(By.LINK_TEXT, "Proceed").click()
+
+    def delete_project(self, project):
+        self.open_projects_page()
+        self.click_on_project_name(project.name)
+        self.click_delete_project_button()
+        # submit deletion
+        self.click_delete_project_button()
+
+    def click_on_project_name(self, name):
+        wd = self.app.wd
+        wd.find_element(By.LINK_TEXT, name).click()
+
+    def click_delete_project_button(self):
+        wd = self.app.wd
+        wd.find_element(By.XPATH, "//input[@value='Delete Project']").click()
