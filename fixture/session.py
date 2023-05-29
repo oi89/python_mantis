@@ -36,7 +36,6 @@ class SessionHelper:
 
     def get_logged_username(self):
         wd = self.app.wd
-        # removing brackets (first and last symbols) to get just a user's name
         return wd.find_element(By.XPATH, "//td[@class='login-info-left']/span[1]").text
 
     def logout(self):
