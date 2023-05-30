@@ -5,6 +5,8 @@ from model.project import Project
 
 
 def test_delete_project(app):
+    app.session.login("administrator", "root")
+
     old_projects = app.project.get_projects_list()
 
     if len(old_projects) == 0:

@@ -23,6 +23,8 @@ test_data = [Project(name=get_date_string(), description=random_string("", 10))]
 
 @pytest.mark.parametrize("project", test_data, ids=[repr(x) for x in test_data])
 def test_add_project(app, project):
+    app.session.login("administrator", "root")
+
     old_projects = app.project.get_projects_list()
     app.project.add_project(project)
     old_projects.append(project)
