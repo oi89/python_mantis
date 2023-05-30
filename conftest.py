@@ -41,6 +41,7 @@ def app(request, config):
     return fixture
 
 
+# fixture for change config file - hide capture for test run
 @pytest.fixture(scope="session", autouse=True)
 def configure_server(request, config):
     install_server_configuration(config["ftp"]['host'], config["ftp"]['username'], config["ftp"]['password'])
