@@ -23,11 +23,14 @@ test_data = [Project(name=get_date_string(), description=random_string("", 10))]
 
 @pytest.mark.parametrize("project", test_data, ids=[repr(x) for x in test_data])
 def test_add_project(app, project):
-    app.session.login("administrator", "root")
+    username = app.config["webadmin"]['username']
+    password = app.config["webadmin"]['password']
 
-    old_projects = app.project.get_projects_list()
+    app.session.login(username, password)
+
+    old_projects = app.soap.get_projects_list(username, password)
     app.project.add_project(project)
     old_projects.append(project)
-    new_projects = app.project.get_projects_list()
+    new_projects = app.soap.get_projects_list(username, password)
 
     assert sorted(new_projects, key=Project.compare_projects) == sorted(old_projects, key=Project.compare_projects)

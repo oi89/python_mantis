@@ -1,4 +1,7 @@
 def test_login(app):
-    app.session.login("administrator", "root")
+    username = app.config["webadmin"]['username']
+    password = app.config["webadmin"]['password']
 
-    assert app.session.is_logged_in_as("administrator")
+    app.session.login(username, password)
+
+    assert app.session.is_logged_in_as(username)

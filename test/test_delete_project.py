@@ -5,9 +5,12 @@ from model.project import Project
 
 
 def test_delete_project(app):
-    app.session.login("administrator", "root")
+    username = app.config["webadmin"]['username']
+    password = app.config["webadmin"]['password']
 
-    old_projects = app.project.get_projects_list()
+    app.session.login(username, password)
+
+    old_projects = app.soap.get_projects_list(username, password)
 
     if len(old_projects) == 0:
         current_time = datetime.datetime.now()
@@ -18,6 +21,6 @@ def test_delete_project(app):
     project = random.choice(old_projects)
     app.project.delete_project(project)
     old_projects.remove(project)
-    new_projects = app.project.get_projects_list()
+    new_projects = app.soap.get_projects_list(username, password)
 
     assert sorted(new_projects, key=Project.compare_projects) == sorted(old_projects, key=Project.compare_projects)
