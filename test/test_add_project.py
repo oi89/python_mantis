@@ -28,9 +28,9 @@ def test_add_project(app, project):
 
     app.session.login(username, password)
 
-    old_projects = app.soap.get_projects_list(username, password)
+    old_projects = app.soap.get_projects_list()
     app.project.add_project(project)
     old_projects.append(project)
-    new_projects = app.soap.get_projects_list(username, password)
+    new_projects = app.soap.get_projects_list()
 
     assert sorted(new_projects, key=Project.compare_projects) == sorted(old_projects, key=Project.compare_projects)

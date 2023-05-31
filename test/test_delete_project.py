@@ -10,7 +10,7 @@ def test_delete_project(app):
 
     app.session.login(username, password)
 
-    old_projects = app.soap.get_projects_list(username, password)
+    old_projects = app.soap.get_projects_list()
 
     if len(old_projects) == 0:
         current_time = datetime.datetime.now()
@@ -21,6 +21,6 @@ def test_delete_project(app):
     project = random.choice(old_projects)
     app.project.delete_project(project)
     old_projects.remove(project)
-    new_projects = app.soap.get_projects_list(username, password)
+    new_projects = app.soap.get_projects_list()
 
     assert sorted(new_projects, key=Project.compare_projects) == sorted(old_projects, key=Project.compare_projects)
